@@ -11,12 +11,22 @@ jobs:
           version: 7.8.0
       - uses: actions/setup-node@v3
       - run: |
-          # run pnpm audit and determine if there are errors
-          pnpm audit --json | tee audit.json
-          COUNT=$(cat audit.json | jq -r '.metadata.vulnerabilities | .high')
+          pnpm audit --json > audit.json
+
+          HIGH_COUNT=$(cat audit.json | jq -r '.metadata.vulnerabilities | .high')
+          CRITICAL_COUNT=$(cat audit.json | jq -r '.metadata.vulnerabilities | .critical')
+          COUNT=$((HIGH_COUNT + CRITICAL_COUNT))
           
           if [[ $COUNT -gt 0 ]]; then
-            echo "There are $COUNT high vulnerabilities"
-            exit 1
+            TIMESTAMP=$(date +%s)
+            git checkout -b audit-fixes-$TIMESTAMP
+            pnpm audit --fix
+            pnpm install
+            git add .
+            git commit -m "fix: audit fixes"
+            git push origin audit-fixes-$TIMESTAMP
+            gh pr create --title "fix: pnpm audit fixes $TIMESTAMP" --body "This PR fixes the following vulnerabilities: $(cat audit.json | jq -r '.advisories | to_entries[] | .key + " " + .value.module_name + " " + .value.title')"
+            exit 1          
           fi
           
+          exit 0
