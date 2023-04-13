@@ -11,6 +11,9 @@ jobs:
           version: 7.8.0
       - uses: actions/setup-node@v3
       - run: |
+          # disable exit on error
+          set +e
+          
           pnpm audit --json > audit.json
 
           HIGH_COUNT=$(cat audit.json | jq -r '.metadata.vulnerabilities | .high')
