@@ -9,6 +9,7 @@ jobs:
       - uses: pnpm/action-setup@v2
         with:
           version: 7.8.0
+          run_install: false
       - uses: actions/setup-node@v3
       - run: |
           # disable exit on error
@@ -35,11 +36,7 @@ jobs:
             
             git push origin audit-fixes-$TIMESTAMP
             echo "Audit fixes pushed to branch audit-fixes-$TIMESTAMP"
-            # create a PR
             
-            curl -X POST \
-              -H "Accept: application/vnd.github.v3+json" \
-              -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-              https://api.github.com/repos/rentpath/rent-js/pulls \
-              -d '{"title": "fix: audit fixes", "head": "audit-fixes-'$TIMESTAMP'", "base": "main"}'
+            gh pr create --title "fix: pnpm audit fixes $TIMESTAMP" --body "This PR fixes the following vulnerabilities: $(cat audit.json | jq -r '.advisories | to_entries[] | .key + " " + .value.module_name + " " + .value.title')"
+          
           fi
