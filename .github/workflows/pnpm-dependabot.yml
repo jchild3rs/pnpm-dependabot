@@ -11,7 +11,12 @@ jobs:
           version: 7.8.0
           run_install: false
       - uses: actions/setup-node@v3
-      - run: |
+      - name: setup git config
+        run: |
+          git config user.name "PNPM Dependabot"
+          git config user.email "<>"
+      - name: run the audit
+        run: |
           # disable exit on error
           set +e
           
