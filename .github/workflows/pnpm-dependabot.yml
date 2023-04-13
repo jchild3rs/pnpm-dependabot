@@ -20,13 +20,23 @@ jobs:
           if [[ $COUNT -gt 0 ]]; then
             TIMESTAMP=$(date +%s)
             git checkout -b audit-fixes-$TIMESTAMP
+            
+            echo "Audit fixes needed"
+          
             pnpm audit --fix
+          
             pnpm install
             git add .
             git commit -m "fix: audit fixes"
+            
+            
             git push origin audit-fixes-$TIMESTAMP
-            gh pr create --title "fix: pnpm audit fixes $TIMESTAMP" --body "This PR fixes the following vulnerabilities: $(cat audit.json | jq -r '.advisories | to_entries[] | .key + " " + .value.module_name + " " + .value.title')"
-            exit 1          
+            echo "Audit fixes pushed to branch audit-fixes-$TIMESTAMP"
+            # create a PR
+            
+            curl -X POST \
+              -H "Accept: application/vnd.github.v3+json" \
+              -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+              https://api.github.com/repos/rentpath/rent-js/pulls \
+              -d '{"title": "fix: audit fixes", "head": "audit-fixes-'$TIMESTAMP'", "base": "main"}'
           fi
-          
-          exit 0
