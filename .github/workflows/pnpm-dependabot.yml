@@ -1,4 +1,4 @@
-name: E2E Manual
+name: Audit Dependencies
 on:
   workflow_dispatch:
 jobs:
