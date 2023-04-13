@@ -1,12 +1,25 @@
 lockfileVersion: 5.4
 
 specifiers:
+  json5: 1.0.1
   turbo: ^1.9.1
 
 dependencies:
+  json5: 1.0.1
   turbo: 1.9.1
 
 packages:
+
+  /json5/1.0.1:
+    resolution: {integrity: sha512-aKS4WQjPenRxiQsC93MNfjx+nbF4PAdYzmd/1JIj8HYzqfbu86beTuNgXDzPknWk0n0uARlyewZo4s++ES36Ow==}
+    hasBin: true
+    dependencies:
+      minimist: 1.2.8
+    dev: false
+
+  /minimist/1.2.8:
+    resolution: {integrity: sha512-2yyAR8qBkN3YuheJanUpWC5U3bb5osDywNB8RzDVlDwDHbocAJveqqj1u8+SVD7jkWT4yvsHCpWqqWqAxb0zCA==}
+    dev: false
 
   /turbo-darwin-64/1.9.1:
     resolution: {integrity: sha512-IX/Ph4CO80lFKd9pPx3BWpN2dynt6mcUFifyuHUNVkOP1Usza/G9YuZnKQFG6wUwKJbx40morFLjk1TTeLe04w==}

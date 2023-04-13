@@ -11,4 +11,12 @@ jobs:
           version: 7.8.0
       - uses: actions/setup-node@v3
       - run: |
-          pnpm audit
+          # run pnpm audit and determine if there are errors
+          pnpm audit --json | tee audit.json
+          COUNT=$(cat audit.json | jq -r '.metadata.vulnerabilities | .high')
+          
+          if [[ $COUNT -gt 0 ]]; then
+            echo "There are $COUNT high vulnerabilities"
+            exit 1
+          fi
+          
