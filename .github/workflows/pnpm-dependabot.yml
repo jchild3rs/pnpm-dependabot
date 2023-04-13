@@ -17,7 +17,8 @@ jobs:
           git config user.email "<>"
       - name: run the audit
         run: |
-          # disable exit on error
+          gh auth login --with-token <<< $GH_TOKEN
+
           set +e
           
           pnpm audit --json > audit.json
