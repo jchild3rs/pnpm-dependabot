@@ -8,11 +8,6 @@
 .cache
 .eslintcache
 
-# build artifacts
-packages/styleguide/**/*.static.config.js
-packages/styleguide/**/*-tailwind-preset.js
-apps/rent/artifacts/designtokens
-
 # local env files
 .env.local
 .env.development.local
@@ -41,5 +36,5 @@ report.json
 reports
 temp
 *.tsbuildinfo
-apps/rent/artifacts/screenshots
 
+audit.json
