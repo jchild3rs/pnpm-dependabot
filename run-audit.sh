@@ -26,6 +26,6 @@ if [[ $COUNT -gt 0 ]]; then
   gh label create "Security" --color "ff0000"
   gh pr create \
     --title "fix: pnpm audit fixes $PRETTY_DATE" \
-    --body "This PR fixes the following vulnerabilities:\n\n$(cat $AUDIT_FILE | jq -r '.advisories | to_entries[] | .key + " *" + .value.module_name + "* " + .value.title + "\n\n*References*\n" + .value.references')" \
+    --body "This PR fixes the following vulnerabilities:\n\n$(cat $AUDIT_FILE | jq -r '.advisories | to_entries[] | .key + " ###" + .value.module_name + " " + .value.title + "\n\n*References*\n" + .value.references')" \
     --label "Security"
 fi
