@@ -28,11 +28,17 @@ jobs:
           if [[ $COUNT -gt 0 ]]; then
             TIMESTAMP=$(date +%s)
             PRETTY_DATE=$(date -d @$TIMESTAMP)
+            
+            git config user.name "PNPM Dependabot"
+            git config user.email "<>"
             git checkout -b audit-fixes-$TIMESTAMP
+            
             pnpm audit --fix
             pnpm install --no-frozen-lockfile
+            
             git commit -am "fix: audit fixes"
             git push origin audit-fixes-$TIMESTAMP
+            
             gh pr create --title "fix: pnpm audit fixes $PRETTY_DATE" --body "This PR fixes the following vulnerabilities: $(cat audit.json | jq -r '.advisories | to_entries[] | .key + " " + .value.module_name + " " + .value.title')"
           fi
         env:
