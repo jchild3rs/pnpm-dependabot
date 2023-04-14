@@ -43,7 +43,7 @@ if [[ $COUNT -gt 0 ]]; then
     -H "Authorization: Bearer $ACTIONS_RUNTIME_TOKEN"\
     -H "X-GitHub-Api-Version: 2022-11-28" \
     https://api.github.com/repos/OWNER/REPO/pulls \
-    -d '{"title":"$PR_TITLE","body":"$PR_BODY","head":"$GITHUB_HEAD_REF","base":"$GITHUB_BASE_REF","label":"$PR_LABEL"}'
+    -d "{\"title\":\"$PR_TITLE\",\"body\":\"$PR_BODY\",\"head\":\"$GITHUB_HEAD_REF\",\"base\":\"$GITHUB_BASE_REF\",\"label\":\"$PR_LABEL\"}"
 
 #  gh pr create \
 #    --title "fix: pnpm audit fixes $(date +"%m/%d/%Y")" \
