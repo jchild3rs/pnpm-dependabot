@@ -1,4 +1,5 @@
-# dont like exit 1 blow up the run
+#!/bin/bash
+
 set +e
 
 AUDIT_FILE=/tmp/audit.json
