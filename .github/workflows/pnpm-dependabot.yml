@@ -11,20 +11,20 @@ jobs:
           version: 7.8.0
           run_install: false
       - uses: actions/setup-node@v3
-      - name: setup git config
-        run: |
-          git config user.name "PNPM Dependabot"
-          git config user.email "<>"
       - name: run the audit
         run: |
+          # dont like exit 1 blow up the run
           set +e
           
+          # capture audit to file
           pnpm audit --json > audit.json
 
+          # get the counts
           HIGH_COUNT=$(cat audit.json | jq -r '.metadata.vulnerabilities | .high')
           CRITICAL_COUNT=$(cat audit.json | jq -r '.metadata.vulnerabilities | .critical')
           COUNT=$((HIGH_COUNT + CRITICAL_COUNT))
           
+          # if there are any vulnerabilities, create a branch and PR
           if [[ $COUNT -gt 0 ]]; then
             TIMESTAMP=$(date +%s)
             git checkout -b audit-fixes-$TIMESTAMP
