@@ -13,8 +13,8 @@ COUNT=$((HIGH_COUNT + CRITICAL_COUNT))
 
 # if there are any vulnerabilities, create a branch and PR
 if [[ $COUNT -gt 0 ]]; then
-  TIMESTAMP=$(date + %s)
-  PRETTY_DATE=$(date + "%m/%d/%Y")
+  TIMESTAMP=$(date +%s)
+  PRETTY_DATE=$(date +"%m/%d/%Y")
   BRANCH_NAME=audit-fixes-$TIMESTAMP
   git config user.name "PNPM Dependabot"
   git config user.email "<>"
