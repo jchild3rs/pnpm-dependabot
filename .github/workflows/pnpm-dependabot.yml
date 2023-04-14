@@ -32,7 +32,7 @@ jobs:
             pnpm install --no-frozen-lockfile
             git add .
             git commit -m "fix: audit fixes"
-            git remote set-url --push origin https://jchild3rs:$GH_TOKEN@github.com/jchild3rs/pnpm-depedabot
+            git remote set-url --push origin https://jchild3rs:$GH_TOKEN@github.com/jchild3rs/pnpm-dependabot
             git push origin audit-fixes-$TIMESTAMP
             gh pr create --title "fix: pnpm audit fixes $TIMESTAMP" --body "This PR fixes the following vulnerabilities: $(cat audit.json | jq -r '.advisories | to_entries[] | .key + " " + .value.module_name + " " + .value.title')"
           fi
