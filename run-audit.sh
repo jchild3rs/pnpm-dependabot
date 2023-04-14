@@ -23,6 +23,7 @@ if [[ $COUNT -gt 0 ]]; then
   pnpm install --no-frozen-lockfile
   git commit -am "fix: pnpm audit errors $PRETTY_DATE"
   git push origin $BRANCH_NAME
+  gh label create "Security" --color "ff0000"
   gh pr create \
     --title "fix: pnpm audit fixes $PRETTY_DATE" \
     --body "This PR fixes the following vulnerabilities:\n\n$(cat $AUDIT_FILE | jq -r '.advisories | to_entries[] | .key + " *" + .value.module_name + "* " + .value.title + "\n\n*References*\n" + .value.references')" \
