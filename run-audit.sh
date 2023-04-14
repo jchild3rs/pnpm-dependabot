@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 set +e
 
@@ -13,7 +13,7 @@ CRITICAL_COUNT=$(cat $AUDIT_FILE | jq -r '.metadata.vulnerabilities | .critical'
 COUNT=$((HIGH_COUNT + CRITICAL_COUNT))
 
 # if there are any vulnerabilities, create a branch and PR
-if [[ $COUNT -gt 0 ]]; then
+if $COUNT -gt 0; then
   TIMESTAMP=$(date +%s)
   BRANCH_NAME=audit-fixes-$TIMESTAMP
   git config user.name "PNPM Dependabot"
