@@ -31,8 +31,7 @@ jobs:
             git checkout -b audit-fixes-$TIMESTAMP
             pnpm audit --fix
             pnpm install --no-frozen-lockfile
-            git add .
-            git commit -m "fix: audit fixes"
+            git commit -am "fix: audit fixes"
             git push origin audit-fixes-$TIMESTAMP
             gh pr create --title "fix: pnpm audit fixes $PRETTY_DATE" --body "This PR fixes the following vulnerabilities: $(cat audit.json | jq -r '.advisories | to_entries[] | .key + " " + .value.module_name + " " + .value.title')"
           fi
