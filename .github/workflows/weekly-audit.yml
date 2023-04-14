@@ -1,6 +1,7 @@
-# pnpm-dependabot
-
-```yaml
+name: Weekly Audit
+on:
+  schedule:
+    - cron: '0 0 * * *' # once a week
 jobs:
   setup:
     runs-on: ubuntu-latest
@@ -11,6 +12,4 @@ jobs:
           version: 7
           run_install: false
       - uses: actions/setup-node@v3
-      - name: run the audit
-        run: ./action.yml
-```
+      - uses: ./action.yml
