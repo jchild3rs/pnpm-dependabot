@@ -1,0 +1,5 @@
+name: "PNPM Dependabot"
+description: "Audits PNPM dependencies and creates a PR if errors are found."
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
