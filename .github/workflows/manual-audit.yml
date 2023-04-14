@@ -1,10 +1,11 @@
 name: Manual Audit
-workflow_dispatch:
-  inputs:
-    pnpm-version:
-      description: 'The version of pnpm to use'
-      required: true
-      default: 7
+on:
+  workflow_dispatch:
+    inputs:
+      pnpm-version:
+        description: 'The version of pnpm to use'
+        required: true
+        default: 7
 jobs:
   setup:
     runs-on: ubuntu-latest
