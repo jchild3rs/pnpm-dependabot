@@ -13,16 +13,18 @@ COUNT=$((HIGH_COUNT + CRITICAL_COUNT))
 
 # if there are any vulnerabilities, create a branch and PR
 if [[ $COUNT -gt 0 ]]; then
-  TIMESTAMP=$(date +%s)
-  PRETTY_DATE=$(date +"%Y-%m-%d %H:%M:%S")
+  TIMESTAMP=$(date + %s)
+  PRETTY_DATE=$(date + "%m/%d/%Y")
   BRANCH_NAME=audit-fixes-$TIMESTAMP
   git config user.name "PNPM Dependabot"
   git config user.email "<>"
   git checkout -b $BRANCH_NAME
   pnpm audit --fix
   pnpm install --no-frozen-lockfile
-  git add .
-  git commit -m "fix: audit fixes"
+  git commit -am "fix: pnpm audit errors $PRETTY_DATE"
   git push origin $BRANCH_NAME
-  gh pr create --title "fix: pnpm audit fixes $PRETTY_DATE" --body "This PR fixes the following vulnerabilities: $(cat $AUDIT_FILE | jq -r '.advisories | to_entries[] | .key + " " + .value.module_name + " " + .value.title')"
+  gh pr create \
+    --title "fix: pnpm audit fixes $PRETTY_DATE" \
+    --body "This PR fixes the following vulnerabilities:\n\n$(cat $AUDIT_FILE | jq -r '.advisories | to_entries[] | .key + " *" + .value.module_name + "* " + .value.title + "\n\n*References*\n" + .value.references')" \
+    --label "Security"
 fi
