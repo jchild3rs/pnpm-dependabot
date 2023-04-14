@@ -3,7 +3,7 @@ on:
   schedule:
     - cron: '0 0 * * *' # once a week
 jobs:
-  setup:
+  audit:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -12,4 +12,4 @@ jobs:
           version: 7
           run_install: false
       - uses: actions/setup-node@v3
-      - uses: ./action.yml
+      - uses: ./
