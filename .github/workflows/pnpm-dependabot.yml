@@ -12,6 +12,6 @@ jobs:
           run_install: false
       - uses: actions/setup-node@v3
       - name: run the audit
-        run: ./detect-errors.sh
+        run: ./run-audit.sh
         env:
           GH_TOKEN: ${{ github.token }}
