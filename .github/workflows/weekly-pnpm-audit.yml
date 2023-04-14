@@ -1,12 +1,13 @@
 name: Weekly Audit Dependencies
 on:
-schedule:
-  - cron: '0 0 * * *' # once a week
+  schedule:
+    - cron: '0 0 * * *' # once a week
 workflow_dispatch:
   inputs:
-    - name: 'VERSION'
-      description: '`pnpm` version'
-      default: 7
+    pnpm-version:
+      description: 'The version of pnpm to use'
+      required: true
+      default: 'latest'
 jobs:
   setup:
     runs-on: ubuntu-latest
@@ -14,7 +15,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: pnpm/action-setup@v2
         with:
-          version: ${{ github.event.inputs.VERSION }}
+          version: ${{ github.event.inputs.pnpm-version }}
           run_install: false
       - uses: actions/setup-node@v3
       - name: run the audit
