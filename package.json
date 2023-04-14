@@ -10,7 +10,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "turbo": "^1.9.1",
-    "json5": "1.0.1"
+    "json5": "1.0.1",
+    "turbo": "^1.9.1"
+  },
+  "pnpm": {
+    "overrides": {
+      "json5@<1.0.2": ">=1.0.2"
+    }
   }
 }
